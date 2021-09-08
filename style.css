@@ -8,6 +8,7 @@
   --semibold-font-weight: 600;
   --base-padding: 16px;
   --medium-padding: 8px;
+  --small-padding: 4px;
   --border-color: #d4d4d496;
   --transition-time-base: .4s;
 }
@@ -38,7 +39,7 @@ button {
 
 input {
   padding: var(--medium-padding);
-  margin-bottom: var(--medium-padding);
+  margin-bottom: var(--small-padding);
   width: 100%;
   transition: border, var(--transition-time);
 }
@@ -92,8 +93,14 @@ button:hover {
   transition: opacity var(--transition-time-base);
 }
 
+.required-info:not(show) {
+  margin: 0;
+  margin-bottom: var(--medium-padding);
+}
+
 .required-info.show {
   opacity: 1;
+  margin-bottom: var(--medium-padding);
 }
 
 ul {
@@ -105,10 +112,33 @@ ul {
 li {
   display: flex;
   margin-bottom: var(--medium-padding);
-  padding: 20px;
-  /* transition: all .6s ease 0s;
-  transform: translateX(0); */
-  transition: all 1s linear;
+}
+
+@keyframes fadeOut {
+  from {
+     transform: translateX(0);
+  }
+  to {
+     transform: translateX(-20vw);
+     color: #fff;
+  }
+}
+
+.removed {
+  animation-duration: .9s;
+  animation-name: fadeOut;
+  animation-timing-function: cubic-bezier(.17,.67,.45,.36);
+  animation-timing-function: cubic-bezier(.28,.32,.33,1.01);
+}
+
+li:not(removed) > .remove {
+  opacity: 1;
+  background-color: #e0e0e0;
+}
+
+.removed > .remove {
+  background-color: #fff;
+  transition: background-color, .6s;
 }
 
 li:first-child {
@@ -136,6 +166,7 @@ a {
   transition: color, .2s;
 
   padding-left: 8px;
+  width: 100%;
 }
 
 a:hover {
@@ -145,7 +176,6 @@ a:hover {
 
 .remove {
   font-size: 14px;
-  background: #e0e0e0;
   color: #fff;
   box-sizing: border-box;
   border-radius: 50%;
@@ -157,5 +187,10 @@ a:hover {
   width: 25px;
   height: 25px;
   padding: .5em;
-  transition-duration: 3s, 5s;
+  padding-bottom: 8px;
+  transition: background-color, .5s;
+}
+
+.remove:hover {
+  cursor: pointer;
 }

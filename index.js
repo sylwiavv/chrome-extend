@@ -29,11 +29,22 @@ const item = document.querySelectorAll('.item');
       const clickedButton = event.target;
       const parentButtonClicked = clickedButton.parentElement;
       const clickedId = parentButtonClicked.dataset.productId;
+      parentButtonClicked.classList.add("removed");
       const found = leadsFromLocalStorage.find(element => element === clickedId);
-      parentButtonClicked.remove();
       const id = myLeads.indexOf(found);
-      const removedDrink = myLeads.splice(id,  1);
+      const leadToRemove = myLeads.splice(id, 1);
       localStorage.setItem("myLeads", JSON.stringify(myLeads));
+
+      const removedElement = document.querySelector('.removed');
+
+      removedElement.addEventListener('animationend', () => {
+        parentButtonClicked.remove();
+      });
+
+      if(requiredInfo.classList.contains("show")) {
+        requiredInfo.classList.remove("show");
+        inputEl.classList.remove("required");
+      }
     });
   });
 }
