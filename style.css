@@ -23,8 +23,9 @@ body {
 .box {
   max-width: 660px;
   overflow-wrap: anywhere;
-  background: var(--white-color-darker);
+  background-color: var(--white-color-darker);
   padding: var(--base-padding);
+  overflow: hidden;
 }
 
 input,
@@ -129,6 +130,7 @@ li {
   animation-name: fadeOut;
   animation-timing-function: cubic-bezier(.17,.67,.45,.36);
   animation-timing-function: cubic-bezier(.28,.32,.33,1.01);
+  color: green;
 }
 
 li:not(removed) > .remove {
@@ -139,6 +141,12 @@ li:not(removed) > .remove {
 .removed > .remove {
   background-color: #fff;
   transition: background-color, .6s;
+}
+
+.removed > a {
+  background-color: #fff;
+  color: #fff;
+  transition: color .4s;
 }
 
 li:first-child {
@@ -193,4 +201,11 @@ a:hover {
 
 .remove:hover {
   cursor: pointer;
+}
+
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .box {
+    max-width: 100%;
+  }
 }
