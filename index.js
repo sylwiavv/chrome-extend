@@ -6,52 +6,24 @@ const requiredInfo = document.querySelector('#input-el-info');
 let myLeads = [];
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
-const renderLeads = () => {
+const render = (leads) => {
 let listItems = "";
 
-for (let i = 0; i < myLeads.length; i++) {
+for (let i = 0; i < leads.length; i++) {
     listItems += `
-    <li data-product-id="${myLeads[i]}" class="item">
-      <a href="${myLeads[i]}" target="_blank">
-        ${myLeads[i]}
+    <li data-product-id="${leads[i]}" class="item">
+      <a href="${leads[i]}" target="_blank">
+        ${leads[i]}
        </a>
-       <div class="remove">x</div>
     </li>`;
 }
 
 leadsList.innerHTML = listItems;
-
-const removeBtns = document.querySelectorAll('.remove');
-const item = document.querySelectorAll('.item');
-
-  removeBtns.forEach((removeBtn) => {
-    removeBtn.addEventListener('click', (e) => {
-      const clickedButton = event.target;
-      const parentButtonClicked = clickedButton.parentElement;
-      const clickedId = parentButtonClicked.dataset.productId;
-      parentButtonClicked.classList.add("removed");
-      const found = leadsFromLocalStorage.find(element => element === clickedId);
-      const id = myLeads.indexOf(found);
-      const leadToRemove = myLeads.splice(id, 1);
-      localStorage.setItem("myLeads", JSON.stringify(myLeads));
-
-      const removedElement = document.querySelector('.removed');
-
-      removedElement.addEventListener('animationend', () => {
-        parentButtonClicked.remove();
-      });
-
-      if(requiredInfo.classList.contains("show")) {
-        requiredInfo.classList.remove("show");
-        inputEl.classList.remove("required");
-      }
-    });
-  });
 }
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
-    renderLeads();
+    render(myLeads);
 }
 
 inputBtn.addEventListener('click', (event) => {
@@ -61,11 +33,11 @@ inputBtn.addEventListener('click', (event) => {
     localStorage.setItem("myLeads", JSON.stringify(myLeads));
     requiredInfo.classList.remove("show");
     inputEl.classList.remove("required");
-    renderLeads();
+    render(myLeads);
   } else {
     requiredInfo.classList.add("show");
     inputEl.classList.add("required");
-    requiredInfo.textContent = "To pole jest wymagane";
+    requiredInfo.teleadstContent = "To pole jest wymagane";
   }
 });
 
@@ -74,5 +46,5 @@ inputBtnDelete.addEventListener('click', (event) => {
   myLeads = [];
   requiredInfo.classList.remove("show");
   inputEl.classList.remove("required");
-  renderLeads();
+  render(myLeads);
 });

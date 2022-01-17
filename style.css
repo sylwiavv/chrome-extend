@@ -125,14 +125,6 @@ li {
   }
 }
 
-.removed {
-  animation-duration: .9s;
-  animation-name: fadeOut;
-  animation-timing-function: cubic-bezier(.17,.67,.45,.36);
-  animation-timing-function: cubic-bezier(.28,.32,.33,1.01);
-  color: green;
-}
-
 li:not(removed) > .remove {
   opacity: 1;
   background-color: #e0e0e0;
